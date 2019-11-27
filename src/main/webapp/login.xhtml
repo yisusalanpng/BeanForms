@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <style>
+          #contenedor{
+                width: 600px;
+                border:1px solid black;
+                background-color: white;
+                border-radius: 10px;
+            }
+        #padre{
+            display:flex;
+            justify-content: center;
+            align-content: center;
+        }
+        </style>
+        
+    </h:head>
+
+    <h:body style="margin:0px;">
+     
+ <h:form>
+
+            <p:growl id="messages" showDetail="true" />
+
+            <p:toolbar class="toolbar">
+                <f:facet name="left">
+                        <p:button outcome="index" value="HOME" />
+
+                    <span class="ui-separator">
+                        <span class="ui-icon pi pi-ellipsis-v" />
+                    </span>
+
+                   
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:menuButton value="Alan">
+                        <p:menuitem value="Encuestas"  update="messages" icon="pi pi-save" />
+                        <p:menuitem value="Cerrar sesión" update="messages" icon="pi pi-refresh" />
+                    </p:menuButton>
+                </f:facet>
+
+            </p:toolbar>
+        </h:form>
+        
+        <h:form id="form">
+            <div id="padre">
+            <div id="contenedor" style="padding:15px;">
+                <div style="padding:15px;">
+                    <p:outputLabel value="Nickname: " style="font-weight:bold;"/>
+                    <p:inputText   style="width:100%"/>
+                </div>
+                <div style="padding:15px;">
+                    <p:outputLabel value="Password: " style="font-weight:bold;"/>
+                    <p:inputText  type="password" style="width:100%"/>
+                </div>
+
+                <div style="padding:30px;">
+                    <p:commandButton value="Iniciar sesión"  ajax="true" style="width:100%;"/>
+                    <p:spacer width="10"/>
+                    <p:button outcome="index" value="Cancelar" style="width:100%;"/>
+                </div>
+
+            </div>
+                </div>
+        </h:form>
+
+    </h:body>
+</html>
