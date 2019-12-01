@@ -34,7 +34,7 @@
 
             <p:toolbar class="toolbar">
                 <f:facet name="left">
-                        <p:button outcome="index" value="HOME" />
+                    <p:button outcome="index" value="BeanForms" />
 
                     <span class="ui-separator">
                         <span class="ui-icon pi pi-ellipsis-v" />
@@ -42,15 +42,14 @@
 
                 </f:facet>
                 <f:facet name="right">
-                    <p:menuButton value="Alan">
-                        <p:menuitem value="Encuestas"  update="messages" icon="pi pi-save" />
-                        <p:menuitem value="Cerrar sesión" update="messages" icon="pi pi-refresh" />
-                    </p:menuButton>
+                    <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
+
                 </f:facet>
 
             </p:toolbar>
         </h:form>
-        
+
         <h:form>
             <div id="padre" style="margin-top:15px; ">
                 <div id="contenedor" style="padding:15px;">
@@ -58,11 +57,11 @@
                         <p:outputLabel value="Encuestas" style="font-weight:bold; font-size: 25px"/> 
                         <br>
                         </br> 
-                            <input type="img" src="pi pi-plus-circle" width="200px" height="200px"/>                        
+                        <input type="img" src="pi pi-plus-circle" width="200px" height="200px"/>                        
                     </div>
                 </div>
             </div>
         </h:form>
-        
+
     </h:body>
 </html>

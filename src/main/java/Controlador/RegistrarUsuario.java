@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -29,12 +30,12 @@ public class RegistrarUsuario implements Serializable {
     private Usuario usuario;
     @EJB
     private BaseDeDatos conexionBD;
+    private String pass;
+
     @PostConstruct
     public void init() {
         usuario = new Usuario();
     }
-
-
 
     public Usuario getUsuario() {
         return usuario;
@@ -45,11 +46,23 @@ public class RegistrarUsuario implements Serializable {
     }
 
     public void registrar() throws IOException {
-        boolean success= conexionBD.registro(this.usuario);
-        if(success){
-            ExternalContext context= FacesContext.getCurrentInstance().getExternalContext();
-		context.redirect("index.xhtml");
+        boolean success = conexionBD.registro(this.usuario, pass);
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        FacesContext contextFaces = FacesContext.getCurrentInstance();
+        if (success) {
+            context.redirect("login.xhtml");
+        } else {
+            contextFaces.addMessage(null, new FacesMessage("El nickname ya está en uso"));
+
         }
-       
+
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }

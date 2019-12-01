@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+    version="2.3">
+<managed-bean>
+        <managed-bean-name>menuToolbar</managed-bean-name>
+        <managed-bean-class>Controlador.MenuToolbar</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>registrarUsuario</managed-bean-name>
+        <managed-bean-class>Controlador.RegistrarUsuario</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+     <managed-bean>
+        <managed-bean-name>iniciarSesion</managed-bean-name>
+        <managed-bean-class>Controlador.IniciarSesion</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>mensajes</managed-bean-name>
+        <managed-bean-class>Mensajes</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+</faces-config>

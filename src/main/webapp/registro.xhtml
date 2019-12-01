@@ -31,7 +31,7 @@
 
             <p:toolbar class="toolbar">
                 <f:facet name="left">
-                        <p:button outcome="index" value="HOME" />
+                    <p:button outcome="index" value="BeanForms" />
 
                     <span class="ui-separator">
                         <span class="ui-icon pi pi-ellipsis-v" />
@@ -41,51 +41,49 @@
                 </f:facet>
 
                 <f:facet name="right">
-                    <p:menuButton value="Alan">
-                        <p:menuitem value="Encuestas"  update="messages" icon="pi pi-save" />
-                        <p:menuitem value="Cerrar sesión" update="messages" icon="pi pi-refresh" />
-                    </p:menuButton>
+                    <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
+
                 </f:facet>
 
             </p:toolbar>
         </h:form>
 
         <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="false"/>
             <div id="padre">
-                <div id="contenedor" style="padding:15px;">
+                <p:panel id="basic" header="Regístrate"  style="margin-bottom:20px;text-align: center;">
+
                     <div style="padding:15px;">
-                        <p:outputLabel value="Nickname: " style="font-weight:bold;"/>
-                        <p:inputText   style="width:100%"/>
+                        <p:outputLabel value="Nickname: " for="nickname" style="font-weight:bold;"/>
+                        <p:inputText id="nickname" value="#{registrarUsuario.usuario.nickname}" style="width:100%" required="true"/>
                     </div>
                     <div style="padding:15px;">
-                        <p:outputLabel value="Nombre: " style="font-weight:bold;"/>
-                        <p:inputText   style="width:100%"/>
+                        <p:outputLabel value="Nombre: " for="nombre" style="font-weight:bold;"/>
+                        <p:inputText id="nombre" value="#{registrarUsuario.usuario.nombre}" style="width:100%" required="true"/>
                     </div>
 
                     <div style="padding:15px;">
-                        <p:outputLabel value="Apellido: " style="font-weight:bold;"/>
-                        <p:inputText   style="width:100%"/>
+                        <p:outputLabel value="Apellido: " for="apellido" style="font-weight:bold;"/>
+                        <p:inputText id="apellido" value="#{registrarUsuario.usuario.apellido}" style="width:100%" required="true"/>
                     </div>
 
                     <div style="padding:15px;">
-                        <p:outputLabel value="Password: " style="font-weight:bold;"/>
-                        <p:inputText style="width:100%"  />
-                    </div>
-
-                    <div style="padding:15px;">
-                        <p:outputLabel value="Repite password: " style="font-weight:bold;"/>
-                        <p:inputText style="width:100%"  />
+                        <p:outputLabel value="Password: " for="password" style="font-weight:bold;"/>
+                        <p:inputText type="password" id="password" value="#{registrarUsuario.pass}" style="width:100%"  required="true"/>
                     </div>
 
 
                     <div style="padding:30px;">
-                        <p:commandButton value="Registrar"  ajax="true" style="width:100%;"/>
+                        <p:commandButton value="Registrar" actionListener="#{registrarUsuario.registrar()}" update="growl" ajax="true" style="width:100%;"/>
                         <p:spacer width="10"/>
                         <p:button outcome="index" value="Cancelar" style="width:100%;"/>
-                    </div>
 
-                </div>
+                    </div>
+                </p:panel>
+
             </div>
+
         </h:form>
 
     </h:body>

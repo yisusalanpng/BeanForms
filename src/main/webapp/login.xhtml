@@ -5,69 +5,83 @@
 
     <h:head>
         <style>
-          #contenedor{
-                width: 600px;
-                border:1px solid black;
-                background-color: white;
-                border-radius: 10px;
+
+            .container
+            {
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                height:100%;
             }
-        #padre{
-            display:flex;
-            justify-content: center;
-            align-content: center;
-        }
+
+            .login
+            {
+
+                background:#212129;
+                border-radius: 15px;
+
+            }        
+            #toolbar{
+                margin:0;
+            }
         </style>
-        
+
     </h:head>
 
     <h:body style="margin:0px;">
-     
- <h:form>
 
-            <p:growl id="messages" showDetail="true" />
+        <h:form id="toolbar">
+
 
             <p:toolbar class="toolbar">
                 <f:facet name="left">
-                        <p:button outcome="index" value="HOME" />
-
+                    <p:button outcome="index" value="BeanForms" />
                     <span class="ui-separator">
                         <span class="ui-icon pi pi-ellipsis-v" />
                     </span>
 
-                   
                 </f:facet>
 
                 <f:facet name="right">
-                    <p:menuButton value="Alan">
-                        <p:menuitem value="Encuestas"  update="messages" icon="pi pi-save" />
-                        <p:menuitem value="Cerrar sesión" update="messages" icon="pi pi-refresh" />
-                    </p:menuButton>
+                   <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
+
                 </f:facet>
 
             </p:toolbar>
         </h:form>
-        
-        <h:form id="form">
-            <div id="padre">
-            <div id="contenedor" style="padding:15px;">
-                <div style="padding:15px;">
-                    <p:outputLabel value="Nickname: " style="font-weight:bold;"/>
-                    <p:inputText   style="width:100%"/>
-                </div>
-                <div style="padding:15px;">
-                    <p:outputLabel value="Password: " style="font-weight:bold;"/>
-                    <p:inputText  type="password" style="width:100%"/>
-                </div>
 
-                <div style="padding:30px;">
-                    <p:commandButton value="Iniciar sesión"  ajax="true" style="width:100%;"/>
-                    <p:spacer width="10"/>
-                    <p:button outcome="index" value="Cancelar" style="width:100%;"/>
-                </div>
 
+        <div class="container">
+
+            <div class="login" style="width: 300px; height: 350px;">
+                <div align="center">
+                    <p:outputLabel style="font-weight:bold; color: #FFF; font-size: 35px;" value="LOGIN"/>
+                </div>
+                <p:separator />
+                <h:form id="login">   
+                    <p:growl id="message" showDetail="true" sticky="false"/>
+                    <br/>
+                    <p:outputLabel  for="usuario" style="font-weight:bold; color: #FFF; margin-left: 25px;" value="Username"/>
+                    <br/>
+                    <p:inputText value="#{iniciarSesion.nickname}" id="usuario" style="margin-left:25px" required="true"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p:outputLabel for="password" style="font-weight:bold; color: #FFF; margin-left: 25px;" value="Password"/>
+                    <br/>
+                    <p:password value="#{iniciarSesion.pass}"  id="password" style="margin-left: 25px" required="true" />
+                    <br/>
+                    <br/>
+                    <p:link value="¿No tienes cuenta? Regístrate." style="color: #FFF; margin-left: 25px " href="registro.xhtml"/>
+                    <br/>
+                    <br/>
+                    <center> <p:commandButton actionListener="#{iniciarSesion.iniciarSesion()}" value="Iniciar Sesión" update="message" /></center>
+                </h:form> 
             </div>
-                </div>
-        </h:form>
+
+        </div>
+
 
     </h:body>
 </html>

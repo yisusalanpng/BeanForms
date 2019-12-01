@@ -29,24 +29,22 @@ and open the template in the editor.
         </style>
     </h:head>
     <h:body style="margin:0px;">
-        <h:form>
+     <h:form id="toolbar">
 
-            <p:growl id="messages" showDetail="true" />
 
             <p:toolbar class="toolbar">
                 <f:facet name="left">
-                    <p:button outcome="index" value="HOME" />
-
+                    <p:button outcome="index" value="BeanForms" />
                     <span class="ui-separator">
                         <span class="ui-icon pi pi-ellipsis-v" />
-                    </span>                  
+                    </span>
+
                 </f:facet>
 
                 <f:facet name="right">
-                    <p:menuButton value="Alan">
-                        <p:menuitem value="Encuestas"  update="messages" icon="pi pi-save" />
-                        <p:menuitem value="Cerrar sesión" update="messages" icon="pi pi-refresh" />
-                    </p:menuButton>
+                   <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
+
                 </f:facet>
 
             </p:toolbar>
