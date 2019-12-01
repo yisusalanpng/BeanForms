@@ -66,9 +66,8 @@
                     <h:panelGrid columns="1" style="width:100%">
 
                         <h:outputText value="Creador: #{form.creador_fk}" />
-                        <p:commandLink  title="Contestar">
+                        <p:commandLink action="#{obtenerFormularios.contestarForm(form.forms_id)}" title="Contestar">
                             <h:outputText styleClass="pi pi-pencil" style="margin:0 auto;"/>
-                            <f:setPropertyActionListener value="#{form}" target="#{obtenerFormularios.formSeleccionado}" />
                         </p:commandLink>
                     </h:panelGrid>
                 </p:panel>

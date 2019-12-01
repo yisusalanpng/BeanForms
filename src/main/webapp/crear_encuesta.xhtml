@@ -97,10 +97,17 @@ and open the template in the editor.
         </h:form>
         <div id="padre" >    
             <h:form>
+                <p:growl id="growl" showDetail="true" sticky="false"/>
+
                 <div id="contenedor">
 
                     <p:panel id="panelEncuesta" header="Crear encuesta"  style="margin-bottom:20px;text-align: center;">
+                        <p:outputLabel for="popup" value="Expiración:" />
+
+                        <p:datePicker placeholder="Ex. 19-11-2019" id="popup" value="#{crearEncuesta.formNuevo.expiracion}" required="true"/>
+
                         <div class="main">
+
                             <p:inputText placeholder="Titulo de la encuesta" id="nickname" value="#{crearEncuesta.formNuevo.titulo}" style="width:80%" required="true"/>
                             <div class="main-align"> 
                                 <h:outputText value="Privado:" />
@@ -112,7 +119,7 @@ and open the template in the editor.
                                 <ui:repeat   value="#{crearEncuesta.formNuevo.preguntas}" var="pregunta" varStatus="index_pregunta">
 
                                     <h:outputText value="Pregunta:" /> <br/>
-                                    <div class="second-align"> <p:inputText value="#{pregunta.pregunta}"  style="width:80%"/> 
+                                    <div class="second-align"> <p:inputText placeholder="Pregunta" value="#{pregunta.pregunta}"  style="width:80%" /> 
 
                                         <h:outputText value="Multiple:" /> 
                                         <p:toggleSwitch value="#{pregunta.multiple}" style="float:right;"  >
@@ -125,7 +132,7 @@ and open the template in the editor.
                                     <h:panelGroup id="opciones">
                                         <ui:repeat value="#{pregunta.opciones}" var="opcion" >
                                             <br/>
-                                            <p:inputText disabled="#{pregunta.multiple eq false}" value="#{opcion.opcion}" style="width:100%" />
+                                            <p:inputText placeholder="Opcion" disabled="#{pregunta.multiple eq false}" value="#{opcion.opcion}" style="width:100%" />
                                             <br/>
 
 
@@ -139,7 +146,7 @@ and open the template in the editor.
                             </h:panelGroup>
                             <br/>
                             <p:commandButton  actionListener="#{crearEncuesta.agregarPregunta()}" value="Pregunta" icon="pi pi-plus-circle" process="@this,toUpdate" update="toUpdate"/>
-                            <p:commandButton  actionListener="#{crearEncuesta.crearEncuesta}" value="Crear form" icon="pi pi-check" process="@this,toUpdate" update="toUpdate"/>
+                            <p:commandButton  actionListener="#{crearEncuesta.crearEncuesta}" value="Crear form" icon="pi pi-check"  update="growl"/>
 
                         </div>
 

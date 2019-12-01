@@ -12,16 +12,26 @@
     <managed-bean>
         <managed-bean-name>obtenerFormularios</managed-bean-name>
         <managed-bean-class>Controlador.ObtenerFormularios</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
      <managed-bean>
         <managed-bean-name>crearEncuesta</managed-bean-name>
         <managed-bean-class>Controlador.CrearEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>contestarEncuesta</managed-bean-name>
+        <managed-bean-class>Controlador.ContestarEncuesta</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>registrarUsuario</managed-bean-name>
         <managed-bean-class>Controlador.RegistrarUsuario</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+     <managed-bean>
+        <managed-bean-name>registroEncuesta</managed-bean-name>
+        <managed-bean-class>Controlador.RegistroEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
      <managed-bean>

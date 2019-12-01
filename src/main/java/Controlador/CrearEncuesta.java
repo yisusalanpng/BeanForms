@@ -9,6 +9,7 @@ import BaseDeDatos.BaseDeDatos;
 import Modelos.Form;
 import Modelos.Opcion;
 import Modelos.Pregunta;
+import Modelos.Usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 
@@ -28,10 +32,21 @@ public class CrearEncuesta implements Serializable {
     private Form formNuevo;
     @EJB
     private BaseDeDatos conexionBD;
+    @EJB
+    Usuario usuario;
 
     @PostConstruct
     public void init() {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
+        if (!usuario.isSesionIniciada()) {
+
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+
+        }
         List<Pregunta> preguntas = new ArrayList<>();
         List<Opcion> opciones = new ArrayList<>();
         opciones.add(new Opcion(""));
@@ -56,7 +71,8 @@ public class CrearEncuesta implements Serializable {
          */
         formNuevo = new Form();
         formNuevo.setPreguntas(preguntas);
-
+        formNuevo.setPrivado(false);
+        formNuevo.setCodigo("0");
     }
 
     public Form getFormNuevo() {
@@ -106,21 +122,45 @@ public class CrearEncuesta implements Serializable {
     }
 
     public void crearEncuesta() {
+        FacesContext contextFaces = FacesContext.getCurrentInstance();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+
+        for (int i = 0; i < formNuevo.getPreguntas().size(); i++) {
+            if (formNuevo.getPreguntas().get(i).getPregunta().equals("")) {
+                contextFaces.addMessage(null, new FacesMessage("Llena todos los campos"));
+
+                return;
+            }
+            for (int j = 0; j < formNuevo.getPreguntas().get(i).getOpciones().size(); j++) {
+                if (formNuevo.getPreguntas().get(i).getOpciones().get(j).getOpcion().equals("")) {
+                    contextFaces.addMessage(null, new FacesMessage("Llena todos los campos"));
+
+                    return;
+                }
+            }
+        }
         if (formNuevo.getPrivado()) {
             formNuevo.setCodigo(generarCodigo());
-           // conexionBD.crearEncuesta(formNuevo);
+            System.out.println(formNuevo.getCodigo());
         }
+        if (conexionBD.crearEncuesta(formNuevo)) {
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+
+        }
+
     }
 
     public String generarCodigo() {
-        System.out.println("click");
         Random random = new Random();
 
         String datos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String codigoGenerado = "";
         int x;
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             x = random.nextInt(datos.length() - 1);
             codigoGenerado += datos.charAt(x);
 

@@ -35,6 +35,11 @@ public class Form implements Serializable {
     public Form() {
     }
 
+    public Form(int forms_id) {
+        this.forms_id = forms_id;
+
+    }
+
     public int getForms_id() {
         return forms_id;
     }
