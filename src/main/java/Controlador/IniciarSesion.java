@@ -8,6 +8,7 @@ package Controlador;
 import BaseDeDatos.BaseDeDatos;
 import Modelos.Usuario;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -18,7 +19,7 @@ import javax.faces.context.FacesContext;
  *
  * @author alan
  */
-public class IniciarSesion {
+public class IniciarSesion implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

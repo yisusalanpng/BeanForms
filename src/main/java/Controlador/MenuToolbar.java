@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelos.Usuario;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -20,7 +21,7 @@ import org.primefaces.model.menu.MenuModel;
  *
  * @author alan
  */
-public class MenuToolbar {
+public class MenuToolbar implements Serializable {
 
     private MenuModel model;
     private String titulo;
@@ -39,29 +40,40 @@ public class MenuToolbar {
 
         if (usuario.isSesionIniciada()) {
             titulo = "Bienvenido, " + usuario.getNickname();
+            DefaultMenuItem crearEncuesta = new DefaultMenuItem("Nueva encuesta");
+            crearEncuesta.setOutcome("crear_encuesta");
+            crearEncuesta.setIcon("pi pi-plus-circle");
+            model.getElements().add(crearEncuesta);
+            
+            DefaultMenuItem misEncuestas = new DefaultMenuItem("Mis encuestas");
+            misEncuestas.setIcon("pi pi-file");
+            misEncuestas.setCommand("#{menuToolbar.misEncuestas()}");
+            model.getElements().add(misEncuestas);
+            
             DefaultMenuItem cerrarSesion = new DefaultMenuItem("Cerrar sesión");
+            cerrarSesion.setIcon("pi pi-power-off");
             cerrarSesion.setCommand("#{menuToolbar.cerrarSesion()}");
             model.getElements().add(cerrarSesion);
-
         } else {
 
             titulo = "Menú";
             DefaultMenuItem login = new DefaultMenuItem("Iniciar sesión");
             login.setOutcome("login");
+            login.setIcon("pi pi-user");
             model.getElements().add(login);
 
             DefaultMenuItem registro = new DefaultMenuItem("Registro");
             registro.setOutcome("registro");
+            registro.setIcon("pi pi-user-plus");
             model.getElements().add(registro);
 
         }
-        DefaultMenuItem Encuestas = new DefaultMenuItem("Encuestas");
-        Encuestas.setOutcome("index");
-        model.getElements().add(Encuestas);
 
         DefaultMenuItem escanearEncuesta = new DefaultMenuItem("Código encuesta");
         escanearEncuesta.setOutcome("index");
+        escanearEncuesta.setIcon("pi pi-key");
         model.getElements().add(escanearEncuesta);
+
     }
 
     public MenuModel getModel() {
@@ -96,15 +108,22 @@ public class MenuToolbar {
     public void cerrarSesion() {
         System.out.println("yea");
         usuario.setSesionIniciada(false);
+        usuario.setNickname("");
+        usuario.setNombre("");
+        usuario.setApellido("");
+        usuario.setAdministrador(false);
         System.out.println(usuario.isSesionIniciada());
         resetMenu();
-        
+
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-       try{
-        context.redirect("index.xhtml");
-       }catch(Exception ex){
-           System.out.println(ex);
-       }
+        try {
+            context.redirect("index.xhtml");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
+    public void misEncuestas() {
+
+    }
 }

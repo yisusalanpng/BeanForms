@@ -4,6 +4,8 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+
         <style>
 
             .container
@@ -36,14 +38,12 @@
             <p:toolbar class="toolbar">
                 <f:facet name="left">
                     <p:button outcome="index" value="BeanForms" />
-                    <span class="ui-separator">
-                        <span class="ui-icon pi pi-ellipsis-v" />
-                    </span>
+                    
 
                 </f:facet>
 
                 <f:facet name="right">
-                   <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
                     <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
 
                 </f:facet>
