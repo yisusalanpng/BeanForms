@@ -35,7 +35,7 @@
                 <f:facet name="left">
                     <p:button outcome="index" value="BeanForms" />
 
-                   
+
 
 
                 </f:facet>
@@ -75,6 +75,8 @@
 
 
                     <div style="padding:30px;">
+                        <p:link value="¿Ya tienes cuenta? Inicia sesión." style="color: #FFF; margin-left: 25px " href="login.xhtml"/>
+
                         <p:commandButton value="Registrar" actionListener="#{registrarUsuario.registrar()}" update="growl" ajax="true" style="width:100%;"/>
                         <p:spacer width="10"/>
                         <p:button outcome="index" value="Cancelar" style="width:100%;"/>

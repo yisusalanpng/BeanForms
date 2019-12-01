@@ -24,7 +24,7 @@ import org.primefaces.PrimeFaces;
  * @author alan
  */
 public class ObtenerFormularios implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     private List<Form> forms;
     @EJB
@@ -35,31 +35,37 @@ public class ObtenerFormularios implements Serializable {
     private FormActual formActual;
     ExternalContext context;
     FacesContext contextFaces;
-    
+
     @PostConstruct
     public void init() {
         forms = conexionBD.obtenerForms();
         context = FacesContext.getCurrentInstance().getExternalContext();
         contextFaces = FacesContext.getCurrentInstance();
     }
-    
+
     public List<Form> getForms() {
         return forms;
     }
-    
+
     public void setForms(List<Form> forms) {
         this.forms = forms;
     }
-    
-    public void contestarForm(int id) {
-        formActual.setFormActual(new Form(id));
+
+    public void contestarForm(int id,String titulo) {
+        formActual.setFormActual(new Form(id,titulo));
+       
         System.out.println(formActual.getFormActual().getForms_id());
         if (!usuario.isSesionIniciada()) {
             try {
                 context.redirect("registroEncuesta.xhtml");
             } catch (Exception ex) {
             }
+        } else {
+            try {
+                context.redirect("contestar_form.xhtml");
+            } catch (Exception ex) {
+            }
         }
-        
+
     }
 }

@@ -10,69 +10,25 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
     <h:head>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 
         <style>
+            #padre{
+                display:flex;
+                justify-content: center;
+                align-content: center;  
+            }
             #contenedor{
                 width: 700px;
 
             }
-            #padre{
+            #radios{
                 display:flex;
                 justify-content: center;
-                align-content: center;
-            }
-            .ui-toggleswitch {
-                position: relative;
-                display: inline-block;
-                width: 20px;
-                height: 28px;
-            }
-
-            .ui-toggleswitch-slider {
-                position: absolute;
-                cursor: pointer;
-                width:52px;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #ccc;
-                -webkit-transition: .4s;
-                transition: .4s;
-            }
-
-            .ui-toggleswitch-slider:before {
-                position: absolute;
-                content: "";
-                height: 20px;
-                width: 20px;
-
-                background-color: white;
-                -webkit-transition: .4s;
-                transition: .4s;
-            }
-            .main{
-                display:flex;
-                justify-content: center;
-                width:100%;
-            }
-            .main-align{
-                display:flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .second-align{
-                display:flex;
-                justify-content: center;
-                align-items: center;   
-                width:100%;
-            }
-            .preguntas-zone{
-                width:100%;
+                align-content: center;  
             }
         </style>
     </h:head>
@@ -95,59 +51,37 @@ and open the template in the editor.
 
             </p:toolbar>
         </h:form>
-        <div id="padre" >    
-            <h:form>
-                <p:growl id="growl" showDetail="true" sticky="false"/>
 
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="false"/>
+            <div id="padre">
                 <div id="contenedor">
 
-                    <p:panel id="panelEncuesta" header="#{contestarEncuesta.formContestado.titulo} "  style="margin-bottom:20px;text-align: center;">
+                    <p:panel  header="#{contestarEncuesta.header}"  style="margin-bottom:20px;text-align: center;">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
+                            <ui:repeat value="#{contestarEncuesta.formActual.getFormActual().getPreguntas()}" var="pregunta" >
+                                <p:outputLabel  value="#{pregunta.pregunta}" />
 
-                        <div class="main">
+                                <div id="radios">
+                                    <p:selectOneRadio required="true" id = "radioID" value="#{pregunta.opcion_elegida_id}">
+                                        <f:selectItems  value="#{pregunta.opciones}" var="opcion" itemLabel="#{opcion.opcion}" itemValue="#{opcion.opcion_id}" />
+                                    </p:selectOneRadio>
+                                </div>
 
-
-                            <div class="preguntas-zone">
-                                <h:panelGroup id="toUpdate">
-                                    <ui:repeat   value="#{contestarEncuesta.formContestado.pregunta}" var="pregunta" varStatus="index_pregunta">
-
-                                        <h:outputText value="Pregunta:" /> <br/>
-                                        <div class="second-align"> 
-                                            <p:outputLabel  value="#{pregunta.pregunta}"  style="width:80%" /> 
-
-                                        </div>
-
-                                        <br/>
-                                        <h:outputText value="Opciones:" /> 
-                                        <h:panelGroup id="opciones">
-                                            <ui:repeat value="#{pregunta.opciones}" var="opcion" >
-                                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                    <p:outputLabel for="opcion" value="Opciones:" />
-                                                    <p:selectOneRadio id="console" value="#{radioView.console}" unselectable="true">
-                                                        <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-                                                        <f:selectItem itemLabel="PS4" itemValue="PS4" />
-                                                        <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
-                                                    </p:selectOneRadio>
-                                                </h:panelGrid>
-
-
-                                            </ui:repeat>
-
-                                        </h:panelGroup><br/>
-                                        <br/>
-
-                                    </ui:repeat>
-                                </h:panelGroup>
                                 <br/>
-                                <p:commandButton  actionListener="#{crearEncuesta.crearEncuesta}" value="Contestar" icon="pi pi-check"  update="growl"/>
+                            </ui:repeat>
 
-                            </div>
+                        </h:panelGrid> 
+                        <center>
+                            <p:button outcome="index" value="Cancelar" />
+                            <p:commandButton actionListener="#{contestarEncuesta.enviarRespuesta()}" value="Enviar respuesta" update="growl" /></center>
 
                     </p:panel> 
 
                 </div>
-            </h:form>     
-        </div>
+            </div> 
+        </h:form>     
     </h:body>
 </html>
 

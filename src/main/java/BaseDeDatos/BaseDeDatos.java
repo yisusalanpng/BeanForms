@@ -1,6 +1,8 @@
 package BaseDeDatos;
 
 import Modelos.Form;
+import Modelos.Opcion;
+import Modelos.Pregunta;
 import Modelos.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -106,8 +108,8 @@ public class BaseDeDatos {
 
     public boolean crearEncuesta(Form nuevoForm) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        int form_id=0;
-        int ultima_pregunta=0;
+        int form_id = 0;
+        int ultima_pregunta = 0;
         try {
             ResultSet res;
 
@@ -132,8 +134,8 @@ public class BaseDeDatos {
 
                 sql = con.prepareStatement("SELECT LAST_INSERT_ID() as id");
                 res = sql.executeQuery();
-                while(res.next()){
-                ultima_pregunta = res.getInt("id");
+                while (res.next()) {
+                    ultima_pregunta = res.getInt("id");
                 }
                 for (int j = 0; j < nuevoForm.getPreguntas().get(i).getOpciones().size(); j++) {
                     sql = con.prepareStatement("INSERT INTO Opcion (Opcion,Pregunta_FK) VALUES(?,?)");
@@ -152,4 +154,55 @@ public class BaseDeDatos {
         }
     }
 
+    public Form obtenerForm(int id) {
+        Form nuevo = new Form();
+        List<Pregunta> preguntas = new ArrayList<>();
+        List<Opcion> opciones = new ArrayList<>();
+
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("SELECT Preguntas_ID,Pregunta from Preguntas where Forms_FK=?");
+            sql.setInt(1, id);
+            res = sql.executeQuery();
+            while (res.next()) {
+                Pregunta pregunta = new Pregunta(res.getString("Pregunta"), res.getInt("Preguntas_ID"));
+                opciones = new ArrayList<>();
+
+                ResultSet resOpciones;
+                PreparedStatement sqlOpciones = con.prepareStatement("SELECT Opcion_ID,Opcion from Opcion where Pregunta_FK=?");
+                sqlOpciones.setInt(1, res.getInt("Preguntas_ID"));
+                resOpciones = sqlOpciones.executeQuery();
+
+                while (resOpciones.next()) {
+                    opciones.add(new Opcion(resOpciones.getInt("Opcion_ID"), resOpciones.getString("Opcion")));
+                }
+                pregunta.setOpciones(opciones);
+                preguntas.add(pregunta);
+            }
+            nuevo.setPreguntas(preguntas);
+            return nuevo;
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return null;
+        }
+
+    }
+
+    public boolean enviarRespuesta(Form nuevoForm, String nickname) {
+
+        try {
+            for (int i = 0; i < nuevoForm.getPreguntas().size(); i++) {
+
+                PreparedStatement sql = con.prepareStatement("insert into Respuesta (Opcion_FK,Nickname_FK) Values(?,?)");
+                sql.setInt(1, nuevoForm.getPreguntas().get(i).getOpcion_elegida_id());
+                sql.setString(2, nickname);
+            sql.executeUpdate();
+
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
 }

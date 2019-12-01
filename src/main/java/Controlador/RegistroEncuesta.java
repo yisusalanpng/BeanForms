@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
  */
 public class RegistroEncuesta implements Serializable {
 
+    ExternalContext context;
     @EJB
     private BaseDeDatos conexionBD;
     @EJB
@@ -35,15 +36,14 @@ public class RegistroEncuesta implements Serializable {
 
     @PostConstruct
     public void init() {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context = FacesContext.getCurrentInstance().getExternalContext();
         if (formActual.getFormActual() == null) {
-                        try {
+            try {
                 context.redirect("index.xhtml");
             } catch (Exception ex) {
-            
-        }
-        }
 
+            }
+        }
 
     }
 
@@ -68,6 +68,14 @@ public class RegistroEncuesta implements Serializable {
 
         }
         usuario.setNickname(codigoGenerado);
+        try {
+            context = FacesContext.getCurrentInstance().getExternalContext();
+
+            System.out.println("ayuda");
+            context.redirect("contestar_form.xhtml");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 
     }
 }
