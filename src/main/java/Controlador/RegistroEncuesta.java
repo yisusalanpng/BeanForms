@@ -55,7 +55,7 @@ public class RegistroEncuesta implements Serializable {
         this.usuario = usuario;
     }
 
-    public void registrar() {
+    public String registrar() {
         Random random = new Random();
 
         String datos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -70,10 +70,11 @@ public class RegistroEncuesta implements Serializable {
         usuario.setNickname(codigoGenerado);
         try {
             context = FacesContext.getCurrentInstance().getExternalContext();
-
             context.redirect("contestar_form.xhtml");
+            return "registrar";
         } catch (Exception ex) {
             System.out.println(ex);
+            return "dead";
         }
 
     }
