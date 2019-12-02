@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+
+        <style>
+            body{
+                background-color: #ebebeb;
+            }
+            #contenedor{
+                width: 70%;
+                border:1px solid black;
+                background-color: white;
+                border-radius: 10px;
+                margin-left: 15%;
+                margin-right: 15%; 
+            }
+            #padre{
+                display:flex;
+                justify-content: center;
+                align-content: center;
+            }
+            #iconos{
+                display:flex;
+            }
+        </style>
+    </h:head>
+
+    <h:body style="margin:0">
+        <h:form>
+
+            <p:growl id="messages" showDetail="true" />
+
+            <p:toolbar class="toolbar">
+                <f:facet name="left">
+                    <p:button outcome="index" value="BeanForms" />
+
+
+
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="dynaButton" value="#{menuToolbar.titulo}" type="button" icon="ui-icon-triangle-1-s"/>  
+                    <p:menu model="#{menuToolbar.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />                       
+
+                </f:facet>
+
+            </p:toolbar>
+        </h:form>
+
+        <h:form>
+
+            <p:dataGrid var="form" value="#{misEncuestas.forms}" columns="3" layout="grid"
+                        rows="12" paginator="true" id="forms"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16" >
+
+                <f:facet name="header">
+                    Mis forms
+                </f:facet>
+
+                <p:growl id="message" showDetail="true" />
+
+                <p:panel id="datos" header="#{form.titulo}" style="text-align:center;border: 1px solid grey;border-radius: 5px;">
+                    <h:panelGrid  columns="1" style="width:100%;min-height: 140px">
+
+                        <h:outputText value="Expira: #{form.expiracion}" />
+                        <h:outputText value="Creada por  #{form.creador_fk}" />
+
+                        <h:outputText  rendered="#{form.privado}"  value="Privado" />
+                        <h:outputText  rendered="#{form.privado}"  value="Código: #{form.codigo}" />
+                        <h:panelGrid columns="3" style="width:100%">
+
+                            <p:commandLink action="#{misEncuestas.verRespuestas(form.forms_id,form.titulo)}" title="Ver respuestas">
+                                <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                            </p:commandLink>
+                            <p:commandLink action="#{misEncuestas.eliminarForm(form.forms_id)}" title="Eliminar" >
+                                <h:outputText styleClass="pi pi-times" style="margin:0 auto;"/>
+                                <p:confirm header="Confirmar" message="¿Deseas borrar el form?" icon="pi pi-exclamation-triangle" />
+
+                            </p:commandLink>
+                            <p:commandLink action="#{misEncuestas.editarForm(form.forms_id,form.titulo,form.expiracion,form.privado,form.creador_fk)}" title="Editar">
+                                <h:outputText styleClass="pi pi-pencil" style="margin:0 auto;"/>
+                            </p:commandLink>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+            </p:confirmDialog>  
+        </h:form>
+
+
+    </h:body>
+</html>

@@ -20,15 +20,16 @@ and open the template in the editor.
                 display:flex;
                 justify-content: center;
                 align-content: center;  
+                width:100%;
             }
             #contenedor{
-                width: 700px;
 
             }
             #radios{
                 display:flex;
                 justify-content: center;
                 align-content: center;  
+                text-align: center;
             }
         </style>
     </h:head>
@@ -58,20 +59,18 @@ and open the template in the editor.
                 <div id="contenedor">
 
                     <p:panel  header="#{contestarEncuesta.header}"  style="margin-bottom:20px;text-align: center;">
-                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                        <h:panelGrid columns="2" style="margin-bottom:10px;text-align: center" cellpadding="5">
+                                <ui:repeat value="#{contestarEncuesta.formActual.getFormActual().getPreguntas()}" var="pregunta" >
+                                    <p:outputLabel  value="#{pregunta.pregunta}" style="text-align: center;"/>
 
-                            <ui:repeat value="#{contestarEncuesta.formActual.getFormActual().getPreguntas()}" var="pregunta" >
-                                <p:outputLabel  value="#{pregunta.pregunta}" />
+                                    <div id="radios">
+                                        <p:selectOneRadio required="true" id = "radioID" value="#{pregunta.opcion_elegida_id}">
+                                            <f:selectItems  value="#{pregunta.opciones}"  var="opcion" itemLabel="#{opcion.opcion}" itemValue="#{opcion.opcion_id}" />
+                                        </p:selectOneRadio>
+                                    </div>
 
-                                <div id="radios">
-                                    <p:selectOneRadio required="true" id = "radioID" value="#{pregunta.opcion_elegida_id}">
-                                        <f:selectItems  value="#{pregunta.opciones}" var="opcion" itemLabel="#{opcion.opcion}" itemValue="#{opcion.opcion_id}" />
-                                    </p:selectOneRadio>
-                                </div>
-
-                                <br/>
-                            </ui:repeat>
-
+                                    <br/>
+                                </ui:repeat>
                         </h:panelGrid> 
                         <center>
                             <p:button outcome="index" value="Cancelar" />

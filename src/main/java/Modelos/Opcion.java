@@ -18,6 +18,9 @@ public class Opcion {
         this.opcion = opcion;
     }
 
+    public Opcion() {
+    }
+
     public Opcion(int opcion_id, String opcion) {
         this.opcion_id = opcion_id;
         this.opcion = opcion;
@@ -39,9 +42,5 @@ public class Opcion {
     public void setOpcion_id(int opcion_id) {
         this.opcion_id = opcion_id;
     }
-
- 
-
-   
 
 }

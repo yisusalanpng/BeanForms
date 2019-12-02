@@ -6,6 +6,8 @@
 package Modelos;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +28,10 @@ public class Form implements Serializable {
     public Form(int forms_id, String titulo, String expiracion, String codigo, String creador_fk, Boolean privado) {
         this.forms_id = forms_id;
         this.titulo = titulo;
-        this.expiracion = new Date();
+        try {
+            this.expiracion = new SimpleDateFormat("yyyy-MM-dd").parse(expiracion);
+        } catch (ParseException ex) {
+        }
         this.codigo = codigo;
         this.creador_fk = creador_fk;
         this.privado = privado;
@@ -43,6 +48,21 @@ public class Form implements Serializable {
     public Form(int forms_id, String titulo) {
         this.forms_id = forms_id;
         this.titulo = titulo;
+    }
+
+    public Form(int forms_id, String titulo, Date expiracion, Boolean privado) {
+        this.forms_id = forms_id;
+        this.titulo = titulo;
+        this.expiracion = expiracion;
+        this.privado = privado;
+    }
+
+    public Form(int forms_id, String titulo, Date expiracion, Boolean privado,String creador) {
+        this.forms_id = forms_id;
+        this.titulo = titulo;
+        this.expiracion = expiracion;
+        this.privado = privado;
+        this.creador_fk=creador;
     }
 
     public int getForms_id() {

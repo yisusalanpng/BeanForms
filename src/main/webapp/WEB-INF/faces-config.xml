@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
-<managed-bean>
+    <managed-bean>
         <managed-bean-name>menuToolbar</managed-bean-name>
         <managed-bean-class>Controlador.MenuToolbar</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -14,14 +14,39 @@
         <managed-bean-class>Controlador.ObtenerFormularios</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
+    <managed-bean>
         <managed-bean-name>crearEncuesta</managed-bean-name>
         <managed-bean-class>Controlador.CrearEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
+    <managed-bean>
+        <managed-bean-name>editarEncuesta</managed-bean-name>
+        <managed-bean-class>Controlador.EditarEncuesta</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>canjearCodigo</managed-bean-name>
+        <managed-bean-class>Controlador.CanjearCodigo</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>verUsuarios</managed-bean-name>
+        <managed-bean-class>Controlador.VerUsuarios</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>contestarEncuesta</managed-bean-name>
         <managed-bean-class>Controlador.ContestarEncuesta</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>misEncuestas</managed-bean-name>
+        <managed-bean-class>Controlador.MisEncuestas</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>respuestaEncuesta</managed-bean-name>
+        <managed-bean-class>Controlador.RespuestaEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -29,12 +54,12 @@
         <managed-bean-class>Controlador.RegistrarUsuario</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
+    <managed-bean>
         <managed-bean-name>registroEncuesta</managed-bean-name>
         <managed-bean-class>Controlador.RegistroEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
+    <managed-bean>
         <managed-bean-name>iniciarSesion</managed-bean-name>
         <managed-bean-class>Controlador.IniciarSesion</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

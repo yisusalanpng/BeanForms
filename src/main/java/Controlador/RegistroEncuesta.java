@@ -71,7 +71,6 @@ public class RegistroEncuesta implements Serializable {
         try {
             context = FacesContext.getCurrentInstance().getExternalContext();
 
-            System.out.println("ayuda");
             context.redirect("contestar_form.xhtml");
         } catch (Exception ex) {
             System.out.println(ex);

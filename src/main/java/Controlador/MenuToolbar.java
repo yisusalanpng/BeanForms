@@ -44,16 +44,22 @@ public class MenuToolbar implements Serializable {
             crearEncuesta.setOutcome("crear_encuesta");
             crearEncuesta.setIcon("pi pi-plus-circle");
             model.getElements().add(crearEncuesta);
-            
+
             DefaultMenuItem misEncuestas = new DefaultMenuItem("Mis encuestas");
             misEncuestas.setIcon("pi pi-file");
             misEncuestas.setCommand("#{menuToolbar.misEncuestas()}");
             model.getElements().add(misEncuestas);
-            
+
             DefaultMenuItem cerrarSesion = new DefaultMenuItem("Cerrar sesión");
             cerrarSesion.setIcon("pi pi-power-off");
             cerrarSesion.setCommand("#{menuToolbar.cerrarSesion()}");
             model.getElements().add(cerrarSesion);
+            if (usuario.isAdministrador()) {
+                DefaultMenuItem usuarios = new DefaultMenuItem("Usuarios");
+                usuarios.setIcon("pi pi-users");
+                usuarios.setCommand("#{menuToolbar.verUsuarios()}");
+                model.getElements().add(usuarios);
+            }
         } else {
 
             titulo = "Menú";
@@ -70,7 +76,7 @@ public class MenuToolbar implements Serializable {
         }
 
         DefaultMenuItem escanearEncuesta = new DefaultMenuItem("Código encuesta");
-        escanearEncuesta.setOutcome("index");
+        escanearEncuesta.setOutcome("escanear_codigo");
         escanearEncuesta.setIcon("pi pi-key");
         model.getElements().add(escanearEncuesta);
 
@@ -124,6 +130,20 @@ public class MenuToolbar implements Serializable {
     }
 
     public void misEncuestas() {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            context.redirect("mis_encuestas.xhtml");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 
+    public void verUsuarios() {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            context.redirect("ver_usuarios.xhtml");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 }

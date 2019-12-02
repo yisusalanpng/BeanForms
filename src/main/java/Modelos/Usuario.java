@@ -11,14 +11,24 @@ import javax.ejb.Stateless;
  *
  * @author alan
  */
-
 @Stateless
 public class Usuario {
+
     private String nickname;
     private String nombre;
     private String apellido;
     private boolean administrador;
     private boolean sesionIniciada;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nickname, String nombre, String apellido, boolean administrador) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.administrador = administrador;
+    }
 
     public boolean isSesionIniciada() {
         return sesionIniciada;
@@ -27,7 +37,7 @@ public class Usuario {
     public void setSesionIniciada(boolean sesionIniciada) {
         this.sesionIniciada = sesionIniciada;
     }
-    
+
     public String getNickname() {
         return nickname;
     }
@@ -59,5 +69,5 @@ public class Usuario {
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
     }
-    
+
 }
