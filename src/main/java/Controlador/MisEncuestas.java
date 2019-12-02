@@ -45,6 +45,15 @@ public class MisEncuestas {
         }
         context = FacesContext.getCurrentInstance().getExternalContext();
         contextFaces = FacesContext.getCurrentInstance();
+
+        if (!usuario.isSesionIniciada()) {
+
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+
+        }
     }
 
     public List<Form> getForms() {
@@ -86,8 +95,8 @@ public class MisEncuestas {
         addMessage("Form eliminado", "Hasta la vista!");
     }
 
-    public void editarForm(int id, String titulo, Date expiracion, Boolean privado,String creador) {
-        formActual.setFormActual(new Form(id, titulo, expiracion, privado,creador));
+    public void editarForm(int id, String titulo, Date expiracion, Boolean privado, String creador) {
+        formActual.setFormActual(new Form(id, titulo, expiracion, privado, creador));
         context = FacesContext.getCurrentInstance().getExternalContext();
 
         try {

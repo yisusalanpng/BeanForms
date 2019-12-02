@@ -35,6 +35,23 @@ public class VerUsuarios {
         context = FacesContext.getCurrentInstance().getExternalContext();
         contextFaces = FacesContext.getCurrentInstance();
         usuarios = conexionBD.obtenerUsuarios();
+
+        if (!usuario.isSesionIniciada()) {
+
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+
+            if (!usuario.isAdministrador()) {
+
+                try {
+                    context.redirect("index.xhtml");
+                } catch (Exception ex) {
+                }
+
+            }
+        }
     }
 
     public void eliminarUsuario(String nickname) {
