@@ -43,7 +43,7 @@ public class BaseDeDatos {
     public Usuario iniciarSesion(String nickname, String pass) {
         try {
             ResultSet res;
-            PreparedStatement sql = con.prepareStatement("select Nickname,Nombre,Apellido, Administrador from Usuario where Nickname=? && AES_DECRYPT(Password,\"frijolero\")=?");
+            PreparedStatement sql = con.prepareStatement("select Nickname,Nombre,Apellido, Administrador from Usuario where Nickname=? && AES_DECRYPT(Password,\"frijolero\")=?&&Activo=1");
             sql.setString(1, nickname);
             sql.setString(2, pass);
             res = sql.executeQuery();
@@ -91,11 +91,13 @@ public class BaseDeDatos {
         }
     }
 
-    public boolean registro(Usuario usuario, String pass) {
+    public boolean registro(Usuario usuario, String pass, Boolean activo) {
         try {
+            String query = activo ? "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,1)" : "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,0)";
+
             ResultSet res;
 
-            PreparedStatement sql = con.prepareStatement("insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0)");
+            PreparedStatement sql = con.prepareStatement(query);
             sql.setString(1, usuario.getNickname());
             sql.setString(2, usuario.getNombre());
             sql.setString(3, usuario.getApellido());
@@ -386,7 +388,7 @@ public class BaseDeDatos {
             res = sql.executeQuery();
             while (res.next()) {
                 usuarios.add(new Usuario(res.getString("Nickname"), res.getString("Nombre"),
-                        res.getString("Apellido"), res.getBoolean("Administrador")));
+                        res.getString("Apellido"), res.getBoolean("Administrador"), res.getBoolean("Activo")));
 
             }
             return usuarios;
@@ -400,7 +402,22 @@ public class BaseDeDatos {
     public Boolean eliminarUsuario(String nickname) {
         try {
             ResultSet res;
-            PreparedStatement sql = con.prepareStatement("DELETE from Usuario where nickname=?");
+            PreparedStatement sql = con.prepareStatement("UPDATE Usuario set activo=0 where nickname=?");
+            sql.setString(1, nickname);
+            sql.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
+
+    public Boolean activarUsuario(String nickname) {
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("UPDATE Usuario set Activo=1 where nickname=?");
             sql.setString(1, nickname);
             sql.executeUpdate();
 

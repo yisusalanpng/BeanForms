@@ -67,6 +67,19 @@ public class VerUsuarios {
         }
     }
 
+    public void activarUsuario(String nickname) {
+        conexionBD.activarUsuario(nickname);
+        usuarios = conexionBD.obtenerUsuarios();
+        context = FacesContext.getCurrentInstance().getExternalContext();
+
+        try {
+
+            context.redirect("ver_usuarios.xhtml");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
     public List<Usuario> getUsuarios() {
         return usuarios;
     }

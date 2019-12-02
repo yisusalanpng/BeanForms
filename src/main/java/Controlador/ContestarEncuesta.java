@@ -69,7 +69,7 @@ public class ContestarEncuesta {
 
     public void enviarRespuesta() {
         if (!usuario.isSesionIniciada()) {
-            if (conexionBD.registro(usuario, usuario.getNickname())) {
+            if (conexionBD.registro(usuario, usuario.getNickname(),false)) {
                 if (conexionBD.enviarRespuesta(formActual.getFormActual(), usuario.getNickname())) {
                     ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                     try {

@@ -19,6 +19,7 @@ public class Usuario {
     private String apellido;
     private boolean administrador;
     private boolean sesionIniciada;
+    private boolean activo;
 
     public Usuario() {
     }
@@ -28,6 +29,14 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.administrador = administrador;
+    }
+
+    public Usuario(String nickname, String nombre, String apellido, boolean administrador,boolean activo) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.administrador = administrador;
+        this.activo=activo;
     }
 
     public boolean isSesionIniciada() {
@@ -68,6 +77,14 @@ public class Usuario {
 
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
 }

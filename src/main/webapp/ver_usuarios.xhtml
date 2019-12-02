@@ -67,22 +67,28 @@
                 <p:growl id="message" showDetail="true" />
 
                 <p:panel id="datos" header="Usuario" style="text-align:center;border: 1px solid grey;border-radius: 5px;">
-                    <h:panelGrid  columns="1" style="width:100%;min-height: 140px">
+                    <h:panelGrid  columns="1" style="width:100%;min-height: 160px">
 
                         <h:outputText   value="#{usuario.nickname}" />
                         <h:outputText   value="#{usuario.nombre}" />
                         <h:outputText   value="#{usuario.apellido}" />
                         <h:outputText rendered="#{usuario.administrador}"  value="Administrador" />
+                        <h:outputText rendered="#{usuario.activo}"  value="Activado" />
 
                         <h:panelGrid columns="1" style="width:100%">
 
-                            
-                            <p:commandLink action="#{verUsuarios.eliminarUsuario(usuario.nickname)}" title="Eliminar" >
+
+                            <p:commandLink action="#{verUsuarios.eliminarUsuario(usuario.nickname)}" title="Desactivar" >
                                 <h:outputText styleClass="pi pi-times" style="margin:0 auto;"/>
-                                <p:confirm header="Confirmar" message="¿Deseas borrar el usuario?" icon="pi pi-exclamation-triangle" />
+                                <p:confirm header="Confirmar" message="¿Deseas desactivar el usuario?" icon="pi pi-exclamation-triangle" />
 
                             </p:commandLink>
-                           
+                            <p:commandLink action="#{verUsuarios.activarUsuario(usuario.nickname)}" title="Activar" >
+                                <h:outputText styleClass="pi pi-check-circle" style="margin:0 auto;"/>
+                                <p:confirm header="Confirmar" message="¿Deseas activar el usuario?" icon="pi check-circle" />
+
+                            </p:commandLink>
+
                         </h:panelGrid>
 
                     </h:panelGrid>

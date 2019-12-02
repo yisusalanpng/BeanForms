@@ -46,7 +46,7 @@ public class RegistrarUsuario implements Serializable {
     }
 
     public void registrar() throws IOException {
-        boolean success = conexionBD.registro(this.usuario, pass);
+        boolean success = conexionBD.registro(this.usuario, pass,true);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         FacesContext contextFaces = FacesContext.getCurrentInstance();
         if (success) {
