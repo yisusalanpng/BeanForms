@@ -95,7 +95,7 @@ public class BaseDeDatos {
 
     public boolean registro(Usuario usuario, String pass, Boolean activo) {
         try {
-            String query = activo ? "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,1)" : "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,0)";
+            String query = activo ? "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,1,1)" : "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,0,1)";
 
             ResultSet res;
 
@@ -122,7 +122,7 @@ public class BaseDeDatos {
         try {
             ResultSet res;
 
-            PreparedStatement sql = con.prepareStatement("insert into Forms(Titulo,Expiracion,Privado,Codigo,Creador_FK) values(?,?,?,?,?)");
+            PreparedStatement sql = con.prepareStatement("insert into Forms(Titulo,Expiracion,Privado,Codigo,Creador_FK,Likes,Dislikes,Habilitado) values(?,?,?,?,?,0,0,1)");
             sql.setString(1, nuevoForm.getTitulo());
             sql.setString(2, dateFormat.format(nuevoForm.getExpiracion()));
             sql.setBoolean(3, nuevoForm.getPrivado());
@@ -175,7 +175,7 @@ public class BaseDeDatos {
 
             sql.executeUpdate();
 
-            sql = con.prepareStatement("insert into Forms(Titulo,Expiracion,Privado,Codigo,Creador_FK) values(?,?,?,?,?)");
+            sql = con.prepareStatement("insert into Forms(Titulo,Expiracion,Privado,Codigo,Creador_FK,Likes,Dislikes,Habilitado) values(?,?,?,?,?,0,0,1)");
             sql.setString(1, nuevoForm.getTitulo());
             sql.setString(2, dateFormat.format(nuevoForm.getExpiracion()));
             sql.setBoolean(3, nuevoForm.getPrivado());
