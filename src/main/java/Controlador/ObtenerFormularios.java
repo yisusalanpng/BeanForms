@@ -59,7 +59,6 @@ public class ObtenerFormularios implements Serializable {
     public void contestarForm(int id, String titulo) {
         formActual.setFormActual(new Form(id, titulo));
 
-        System.out.println(formActual.getFormActual().getForms_id());
         if (!usuario.isSesionIniciada()) {
             try {
                 context.redirect("registroEncuesta.xhtml");
@@ -72,5 +71,22 @@ public class ObtenerFormularios implements Serializable {
             }
         }
 
+    }
+
+    public void like(int form) {
+        if (conexionBD.like(form)) {
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+        }
+    }
+      public void dislike(int form) {
+        if (conexionBD.dislike(form)) {
+            try {
+                context.redirect("index.xhtml");
+            } catch (Exception ex) {
+            }
+        }
     }
 }

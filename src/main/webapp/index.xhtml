@@ -51,7 +51,7 @@
         </h:form>
 
         <h:form>
-            
+
             <p:dataGrid var="form" value="#{obtenerFormularios.forms}" columns="3" layout="grid"
                         rows="12" paginator="true" id="forms"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -60,15 +60,27 @@
                 <f:facet name="header">
                     Formularios disponibles
                 </f:facet>
-               
-                
+
+
                 <p:panel header="#{form.titulo}" style="text-align:center;border: 1px solid grey;border-radius: 5px;">
                     <h:panelGrid columns="1" style="width:100%">
 
                         <h:outputText value="Creador: #{form.creador_fk}" />
+
                         <p:commandLink action="#{obtenerFormularios.contestarForm(form.forms_id,form.titulo)}" title="Contestar">
                             <h:outputText styleClass="pi pi-pencil" style="margin:0 auto;"/>
                         </p:commandLink>
+
+                        <h:panelGrid columns="4" style="width:100%">
+                            <p:commandLink action="#{obtenerFormularios.like(form.forms_id)}" title="Like">
+                                <h:outputText styleClass="pi pi-arrow-up" style="margin:0 auto;"/>
+                            </p:commandLink><h:outputText value=" #{form.likes}" />
+                            <p:commandLink action="#{obtenerFormularios.dislike(form.forms_id)}" title="Dislike">
+                                <h:outputText styleClass="pi pi-arrow-down" style="margin:0 auto;"/>
+                            </p:commandLink><h:outputText value=" #{form.dislikes}" />
+
+                        </h:panelGrid>
+
                     </h:panelGrid>
                 </p:panel>
 

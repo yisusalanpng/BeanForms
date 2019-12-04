@@ -67,14 +67,17 @@
                 <p:growl id="message" showDetail="true" />
 
                 <p:panel id="datos" header="#{form.titulo}" style="text-align:center;border: 1px solid grey;border-radius: 5px;">
-                    <h:panelGrid  columns="1" style="width:100%;min-height: 140px">
+                    <h:panelGrid  columns="1" style="width:100%;min-height: 200px">
 
                         <h:outputText value="Expira: #{form.expiracion}" />
                         <h:outputText value="Creada por  #{form.creador_fk}" />
 
                         <h:outputText  rendered="#{form.privado}"  value="Privado" />
                         <h:outputText  rendered="#{form.privado}"  value="Código: #{form.codigo}" />
-                        <h:panelGrid columns="3" style="width:100%">
+                        <h:outputText value="Likes:#{form.likes}" style="margin:0 auto;"/>
+                        <h:outputText value="Dislikes:#{form.dislikes}" style="margin:0 auto;"/>
+
+                        <h:panelGrid columns="4" style="width:100%">
 
                             <p:commandLink action="#{misEncuestas.verRespuestas(form.forms_id,form.titulo)}" title="Ver respuestas">
                                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
@@ -86,6 +89,12 @@
                             </p:commandLink>
                             <p:commandLink action="#{misEncuestas.editarForm(form.forms_id,form.titulo,form.expiracion,form.privado,form.creador_fk)}" title="Editar">
                                 <h:outputText styleClass="pi pi-pencil" style="margin:0 auto;"/>
+                            </p:commandLink>
+                            <p:commandLink rendered="#{form.habilitado}" action="#{misEncuestas.deshabilitarForm(form.forms_id)}" title="Deshabilitar">
+                                <h:outputText styleClass="pi pi-circle-on" style="margin:0 auto;"/>
+                            </p:commandLink>
+                            <p:commandLink rendered="#{!form.habilitado}" action="#{misEncuestas.habilitarForm(form.forms_id)}" title="Habilitar">
+                                <h:outputText styleClass="pi pi-circle-off" style="margin:0 auto;"/>
                             </p:commandLink>
                         </h:panelGrid>
 

@@ -26,7 +26,7 @@ import javax.inject.Named;
  * @author alan
  */
 @Named
-public class MisEncuestas implements Serializable{
+public class MisEncuestas implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -100,6 +100,33 @@ public class MisEncuestas implements Serializable{
         addMessage("Form eliminado", "Hasta la vista!");
     }
 
+    public void deshabilitarForm(int id) {
+        context = FacesContext.getCurrentInstance().getExternalContext();
+
+        if (conexionBD.deshabilitarForm(id)) {
+            try {
+
+                context.redirect("mis_encuestas.xhtml");
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
+
+    }
+     public void habilitarForm(int id) {
+        context = FacesContext.getCurrentInstance().getExternalContext();
+
+        if (conexionBD.habilitarForm(id)) {
+            try {
+
+                context.redirect("mis_encuestas.xhtml");
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
+
+    }
+
     public void editarForm(int id, String titulo, Date expiracion, Boolean privado, String creador) {
         formActual.setFormActual(new Form(id, titulo, expiracion, privado, creador));
         context = FacesContext.getCurrentInstance().getExternalContext();
@@ -124,4 +151,5 @@ public class MisEncuestas implements Serializable{
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
 }

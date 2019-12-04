@@ -75,15 +75,14 @@ public class BaseDeDatos {
         List<Form> listaForms = new ArrayList<Form>();
         try {
             ResultSet res;
-            PreparedStatement sql = con.prepareStatement("select * from Forms WHERE Privado=0&&Expiracion>?");
+            PreparedStatement sql = con.prepareStatement("select * from Forms WHERE Privado=0&&Expiracion>?&&Habilitado=1");
             sql.setString(1, fecha);
             res = sql.executeQuery();
             if (!res.next()) {
                 return null;
             } else {
                 do {
-                    listaForms.add(new Form(res.getInt("Forms_ID"), res.getString("Titulo"),
-                            res.getString("Expiracion"), res.getString("Codigo"), res.getString("Creador_FK"), res.getBoolean("Privado")));
+                    listaForms.add(new Form(res.getInt("Forms_ID"), res.getString("Titulo"), res.getString("Expiracion"), res.getString("Codigo"), res.getString("Creador_FK"), res.getBoolean("Privado"), res.getInt("Likes"), res.getInt("Dislikes")));
                 } while (res.next());
                 return listaForms;
 
@@ -285,7 +284,7 @@ public class BaseDeDatos {
             } else {
                 do {
                     listaForms.add(new Form(res.getInt("Forms_ID"), res.getString("Titulo"),
-                            res.getString("Expiracion"), res.getString("Codigo"), res.getString("Creador_FK"), res.getBoolean("Privado")));
+                            res.getString("Expiracion"), res.getString("Codigo"), res.getString("Creador_FK"), res.getBoolean("Privado"), res.getInt("likes"), res.getInt("dislikes"), res.getBoolean("Habilitado")));
                 } while (res.next());
                 return listaForms;
 
@@ -422,6 +421,66 @@ public class BaseDeDatos {
             ResultSet res;
             PreparedStatement sql = con.prepareStatement("UPDATE Usuario set Activo=1 where nickname=?");
             sql.setString(1, nickname);
+            sql.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
+
+    public Boolean like(int form) {
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("UPDATE Forms set Likes=Likes+1 where Forms_ID=?");
+            sql.setInt(1, form);
+            sql.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
+
+    public Boolean dislike(int form) {
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("UPDATE Forms set Dislikes=Dislikes+1 where Forms_ID=?");
+            sql.setInt(1, form);
+            sql.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
+
+    public Boolean habilitarForm(int form) {
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("UPDATE Forms set Habilitado=1 where Forms_ID=?");
+            sql.setInt(1, form);
+            sql.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(" -> " + ex);
+            return false;
+        }
+    }
+
+    public Boolean deshabilitarForm(int form) {
+        try {
+            ResultSet res;
+            PreparedStatement sql = con.prepareStatement("UPDATE Forms set Habilitado=0 where Forms_ID=?");
+            sql.setInt(1, form);
             sql.executeUpdate();
 
             return true;
