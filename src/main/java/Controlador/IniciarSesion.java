@@ -11,19 +11,23 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
-public class IniciarSesion implements Serializable{
+@Named
+public class IniciarSesion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private BaseDeDatos conexionBD;
@@ -49,7 +53,7 @@ public class IniciarSesion implements Serializable{
 
     public void iniciarSesion() throws IOException {
         this.usuario = conexionBD.iniciarSesion(nickname, pass);
-    
+
         if (this.usuario != null) {
             this.usuario.setSesionIniciada(true);
 

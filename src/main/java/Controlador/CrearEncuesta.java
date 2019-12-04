@@ -17,22 +17,25 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
+@Named
 public class CrearEncuesta implements Serializable {
 
     private Form formNuevo;
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
+    @Inject
     Usuario usuario;
 
     @PostConstruct
@@ -87,6 +90,28 @@ public class CrearEncuesta implements Serializable {
         List<Pregunta> preguntas = formNuevo.getPreguntas();
         preguntas.get(index).getOpciones().add(new Opcion(""));
 
+        formNuevo.setPreguntas(preguntas);
+
+    }
+
+    public void quitarOpcion(int index) {
+        List<Pregunta> preguntas = formNuevo.getPreguntas();
+        List<Opcion> opciones = new ArrayList<>();
+        opciones = preguntas.get(index).getOpciones();
+        if (opciones.size() > 0) {
+            opciones.remove(opciones.size() - 1);
+
+        }
+        preguntas.get(index).setOpciones(opciones);
+        formNuevo.setPreguntas(preguntas);
+
+    }
+      public void quitarPregunta(int index) {
+        List<Pregunta> preguntas = formNuevo.getPreguntas();
+        if (preguntas.size() > 0) {
+            preguntas.remove(preguntas.size() - 1);
+
+        }
         formNuevo.setPreguntas(preguntas);
 
     }

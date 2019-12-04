@@ -17,20 +17,24 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
+@Named
 public class RegistroEncuesta implements Serializable {
 
     ExternalContext context;
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
-    private Usuario usuario;
+    @Inject
+    Usuario usuario;
     @EJB
     private FormActual formActual;
 

@@ -5,14 +5,20 @@
  */
 package Modelos;
 
-import javax.ejb.Stateless;
+import java.io.Serializable;
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+import javax.ejb.Stateful;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author alan
  */
-@Stateless
-public class Usuario {
+@Named
+@SessionScoped
+public class Usuario implements Serializable{
 
     private String nickname;
     private String nombre;
@@ -22,7 +28,10 @@ public class Usuario {
     private boolean activo;
 
     public Usuario() {
+        sesionIniciada=false;
     }
+
+  
 
     public Usuario(String nickname, String nombre, String apellido, boolean administrador) {
         this.nickname = nickname;

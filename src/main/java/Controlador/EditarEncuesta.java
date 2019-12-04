@@ -11,25 +11,30 @@ import Modelos.Opcion;
 import Modelos.Pregunta;
 import Modelos.Usuario;
 import Servicios.FormActual;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
-public class EditarEncuesta {
+@Named
+public class EditarEncuesta implements Serializable {
 
     private Form formNuevo;
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private FormActual formActual;
@@ -110,7 +115,6 @@ public class EditarEncuesta {
 
         }
         formNuevo.setPreguntas(preguntas);
-        
 
     }
 
@@ -152,7 +156,7 @@ public class EditarEncuesta {
             formNuevo.setCodigo(generarCodigo());
             System.out.println(formNuevo.getCodigo());
         }
-        if (conexionBD.editarEncuesta(formNuevo, formActual.getFormActual().getForms_id(),formActual.getFormActual().getCreador_fk())) {
+        if (conexionBD.editarEncuesta(formNuevo, formActual.getFormActual().getForms_id(), formActual.getFormActual().getCreador_fk())) {
             try {
                 context.redirect("index.xhtml");
             } catch (Exception ex) {

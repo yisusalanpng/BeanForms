@@ -9,25 +9,30 @@ import BaseDeDatos.BaseDeDatos;
 import Modelos.Form;
 import Modelos.Usuario;
 import Servicios.FormActual;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
-public class MisEncuestas {
+@Named
+public class MisEncuestas implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private FormActual formActual;

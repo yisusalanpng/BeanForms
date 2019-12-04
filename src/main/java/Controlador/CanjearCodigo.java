@@ -13,19 +13,23 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
+@Named
 public class CanjearCodigo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private BaseDeDatos conexionBD;
@@ -44,26 +48,26 @@ public class CanjearCodigo implements Serializable {
     }
 
     public void buscarForm() {
-            context = FacesContext.getCurrentInstance().getExternalContext();
-            contextFaces = FacesContext.getCurrentInstance();
-            Form temp = conexionBD.canjearCodigo(codigo);
-            if (temp.getForms_id() == 0||codigo.equals("0")) {
-                contextFaces.addMessage(null, new FacesMessage("No se ha encontrado el formulario"));
+        context = FacesContext.getCurrentInstance().getExternalContext();
+        contextFaces = FacesContext.getCurrentInstance();
+        Form temp = conexionBD.canjearCodigo(codigo);
+        if (temp.getForms_id() == 0 || codigo.equals("0")) {
+            contextFaces.addMessage(null, new FacesMessage("No se ha encontrado el formulario"));
+        } else {
+            formActual.setFormActual(temp);
+            if (!usuario.isSesionIniciada()) {
+                try {
+                    context.redirect("registroEncuesta.xhtml");
+                } catch (Exception ex) {
+                }
             } else {
-                formActual.setFormActual(temp);
-                if (!usuario.isSesionIniciada()) {
-                    try {
-                        context.redirect("registroEncuesta.xhtml");
-                    } catch (Exception ex) {
-                    }
-                } else {
-                    try {
-                        context.redirect("contestar_form.xhtml");
-                    } catch (Exception ex) {
-                    }
+                try {
+                    context.redirect("contestar_form.xhtml");
+                } catch (Exception ex) {
                 }
             }
-        
+        }
+
     }
 
     public String getCodigo() {

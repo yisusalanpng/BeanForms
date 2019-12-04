@@ -12,25 +12,30 @@ import Modelos.Respuesta;
 import Modelos.Resumen;
 import Modelos.Usuario;
 import Servicios.FormActual;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
  * @author alan
  */
-public class RespuestaEncuesta {
+@Named
+public class RespuestaEncuesta implements Serializable{
 
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private FormActual formActual;

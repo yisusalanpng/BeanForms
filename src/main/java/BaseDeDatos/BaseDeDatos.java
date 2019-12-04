@@ -20,12 +20,15 @@ import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+@Named
 @Stateless
 public class BaseDeDatos {
 
-    @EJB
-    private Usuario usuario;
+    @Inject
+    Usuario usuario;
 
     protected Connection con;
 

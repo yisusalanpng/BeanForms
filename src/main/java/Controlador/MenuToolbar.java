@@ -9,9 +9,12 @@ import Modelos.Usuario;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -21,13 +24,14 @@ import org.primefaces.model.menu.MenuModel;
  *
  * @author alan
  */
+@Named
 public class MenuToolbar implements Serializable {
 
     private MenuModel model;
     private String titulo;
 
-    @EJB
-    private Usuario usuario;
+    @Inject
+    Usuario usuario;
 
     @PostConstruct
     public void init() {

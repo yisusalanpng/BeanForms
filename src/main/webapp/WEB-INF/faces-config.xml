@@ -36,6 +36,11 @@
         <managed-bean-class>Controlador.CanjearCodigo</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+       <managed-bean>
+        <managed-bean-name>canjearCodigo</managed-bean-name>
+        <managed-bean-class>Controlador.CanjearCodigo</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>verUsuarios</managed-bean-name>
         <managed-bean-class>Controlador.VerUsuarios</managed-bean-class>
@@ -66,14 +71,11 @@
         <managed-bean-class>Controlador.RegistroEncuesta</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+   
     <managed-bean>
         <managed-bean-name>iniciarSesion</managed-bean-name>
         <managed-bean-class>Controlador.IniciarSesion</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>mensajes</managed-bean-name>
-        <managed-bean-class>Mensajes</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+ 
 </faces-config>

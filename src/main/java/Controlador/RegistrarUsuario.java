@@ -34,7 +34,6 @@ public class RegistrarUsuario implements Serializable {
 
     @PostConstruct
     public void init() {
-        usuario = new Usuario();
     }
 
     public Usuario getUsuario() {

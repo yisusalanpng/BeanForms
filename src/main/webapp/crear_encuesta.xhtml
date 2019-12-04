@@ -140,11 +140,15 @@ and open the template in the editor.
 
                                     </h:panelGroup><br/>
                                     <p:commandButton disabled="#{pregunta.multiple eq false}" actionListener="#{crearEncuesta.agregarOpcion(index_pregunta.index)}" value="Opcion" icon="pi pi-plus" process="@this,opciones" update="opciones"  /><br/>
+                                    <p:commandButton disabled="#{pregunta.multiple eq false}" actionListener="#{crearEncuesta.quitarOpcion(index_pregunta.index)}" value="Opcion" icon="pi pi-minus" process="@this,opciones" update="opciones"  /><br/>
+
                                     <br/>
 
                                 </ui:repeat>
                             </h:panelGroup>
                             <br/>
+                            <p:commandButton  actionListener="#{crearEncuesta.quitarPregunta(index_pregunta.index)}" value="Quitar pregunta" icon="pi pi-minus-circle" process="@this,toUpdate" update="toUpdate"/>
+
                             <p:commandButton  actionListener="#{crearEncuesta.agregarPregunta()}" value="Pregunta" icon="pi pi-plus-circle" process="@this,toUpdate" update="toUpdate"/>
                             <p:commandButton  actionListener="#{crearEncuesta.crearEncuesta}" value="Crear form" icon="pi pi-check"  update="growl"/>
 

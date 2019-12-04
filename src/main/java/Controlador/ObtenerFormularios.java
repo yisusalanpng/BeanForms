@@ -15,19 +15,24 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 /**
  *
  * @author alan
  */
+@Named
 public class ObtenerFormularios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<Form> forms;
-    @EJB
+
+    @Inject
     Usuario usuario;
     @EJB
     private BaseDeDatos conexionBD;
@@ -51,9 +56,9 @@ public class ObtenerFormularios implements Serializable {
         this.forms = forms;
     }
 
-    public void contestarForm(int id,String titulo) {
-        formActual.setFormActual(new Form(id,titulo));
-       
+    public void contestarForm(int id, String titulo) {
+        formActual.setFormActual(new Form(id, titulo));
+
         System.out.println(formActual.getFormActual().getForms_id());
         if (!usuario.isSesionIniciada()) {
             try {

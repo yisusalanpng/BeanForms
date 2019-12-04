@@ -11,24 +11,29 @@ import Modelos.Opcion;
 import Modelos.Pregunta;
 import Modelos.Usuario;
 import Servicios.FormActual;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
-public class ContestarEncuesta {
+@Named
+public class ContestarEncuesta implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @EJB
     private BaseDeDatos conexionBD;
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private FormActual formActual;
@@ -69,7 +74,7 @@ public class ContestarEncuesta {
 
     public void enviarRespuesta() {
         if (!usuario.isSesionIniciada()) {
-            if (conexionBD.registro(usuario, usuario.getNickname(),false)) {
+            if (conexionBD.registro(usuario, usuario.getNickname(), false)) {
                 if (conexionBD.enviarRespuesta(formActual.getFormActual(), usuario.getNickname())) {
                     ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                     try {

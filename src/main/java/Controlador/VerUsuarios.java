@@ -9,20 +9,25 @@ import BaseDeDatos.BaseDeDatos;
 import Modelos.Form;
 import Modelos.Usuario;
 import Servicios.FormActual;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author alan
  */
-public class VerUsuarios {
+@Named
+public class VerUsuarios implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    @EJB
+    @Inject
     Usuario usuario;
     @EJB
     private BaseDeDatos conexionBD;
