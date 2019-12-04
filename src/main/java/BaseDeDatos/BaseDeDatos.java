@@ -95,7 +95,7 @@ public class BaseDeDatos {
 
     public boolean registro(Usuario usuario, String pass, Boolean activo) {
         try {
-            String query = activo ? "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,1,1)" : "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,0,1)";
+            String query = activo ? "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,1)" : "insert into Usuario values(?,?,?, AES_ENCRYPT(?,\"frijolero\"),0,0)";
 
             ResultSet res;
 
@@ -104,7 +104,7 @@ public class BaseDeDatos {
             sql.setString(2, usuario.getNombre());
             sql.setString(3, usuario.getApellido());
             sql.setString(4, pass);
-
+            System.out.println(sql);
             sql.executeUpdate();
 
             return true;

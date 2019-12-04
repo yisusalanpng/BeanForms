@@ -21,9 +21,9 @@ import javax.inject.Named;
  *
  * @author alan
  */
+@Named
 public class RegistrarUsuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     /**
      * Creates a new instance of RegistrarUsuario
      */
@@ -34,6 +34,7 @@ public class RegistrarUsuario implements Serializable {
 
     @PostConstruct
     public void init() {
+        usuario= new Usuario();
     }
 
     public Usuario getUsuario() {
